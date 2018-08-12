@@ -1,0 +1,9 @@
+baseURL: https://akirachiku.com
+disablePathToLower: true
+languageCode: ja-jp
+title: 包丁一本さらしに巻いて
+hasCJKLanguage: true
+pygmentsCodeFences: true
+
+permalinks:
+  post: /post/:filename

@@ -1,0 +1,22 @@
+{{ partial "header.html" . }}
+	<main class="pure-u-1 pure-u-md-1">
+		<article>
+			<h2>{{ .Title }}</h2>
+			<time>{{ .Date.Format "2006/01/02" }}</time>
+			<div>
+				{{ .Content }}
+			</div>
+			<div>
+				<ul id="tags">
+					{{ range .Params.tags }}
+					<li><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a> </li>
+					{{ end }}
+				</ul>
+			</div>
+			<div>
+				{{ template "_internal/disqus.html" . }}
+			</div>
+		</article>
+	</main>
+{{ partial "sidebar.html" . }}
+{{ partial "footer.html" . }}

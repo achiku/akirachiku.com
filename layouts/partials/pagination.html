@@ -1,0 +1,9 @@
+<div id="pagenation" class="pure-u-1 pure-u-md-1">
+{{ if .Paginator.HasPrev }}
+	<a href="{{ .Paginator.Prev.URL }}">Previous Page</a>
+{{ end }}
+{{ .Paginator.PageNumber }} of {{ .Paginator.TotalPages }}
+{{ if .Paginator.HasNext }}
+	<a href="{{ .Paginator.Next.URL }}">Next Page</a>
+{{ end }}
+</div>
