@@ -162,10 +162,33 @@ func IsTemporary(err error) bool {
 
 また、特にパッケージ毎にエラーを定義せずに原則 `error` を `errors.Wrap` して `model` -> `service` -> `handler` に伝播させていっている。Error Type を使わなかった理由は特に無くて、ただただアプリケーション作るだけならあんまし必要なくね、って思ったから。
 
-例えば、`model.GetUserByID(tx sql.Tx, id int64) (*model.User, error)` という関数があったとして、その関数から `UserNotFoundError` や `UserSuspendedError` を返す事もできる。
+例えば、`model.GetUserByID(tx sql.Tx, id int64) (*model.User, error)` という関数があったとして、その関数から `UserNotFoundError` や `UserSuspendedError` を返す事もできる。できるけど、`xxNotFound` 系のエラー型を作ってしまうとその他のエラー型もすべて作る事になってしまう(作らなくてもいいけど大きく一貫性を損なう)。それでも良いと言えば良いのだけど、メリットが少ないと感じている。それならば、`model.GetUserByID(tx sql.Tx, id int64) (*model.User, bool, error)` として戻り値2つ目を見つかったかどうかの真偽値にし、呼び出し側で処理を分岐するのが楽かなと思う。また、「ユーザーのステータスが `suspended` であるかどうか」というのは、取得されたユーザーデータを元に呼び出し元で判定し、適切なエラーをフロントエンドに返す、という形にすれば不要になる。この関数 `model.GetUserByID` の役割にもよるが、どうしても呼び出し元で複数のエラーハンドリングをしないといけない場合、関数を分割することを検討するなどし、現状はなるべく Error Type を作らずに分岐可能な情報を返すような方針で設計している。
+
+ただし、特に外部APIにアクセスするクライアントライブラリに関しては返ってくるエラーに様々なパターンがあり且つそれらのパターン別にフロントエンドに返すメッセージを分けたいことが多い為、独自の Error Type を定義して利用することもある。もちろん失敗した事だけわかれば良い外部APIであれば error をそのまま返す形になっている。
 
 
 #### フロントとのやり取りをするためにはそれ用の Error Type を定義してやりとりする
+
+以下を利用している。
+
+```go
+// Error struct for error resource
+type Error struct {
+	Code   string `json:"code,omitempty"`
+	Detail string `json:"detail,omitempty"`
+	Errors []struct {
+		Code       string `json:"code,omitempty"`
+		Detail     string `json:"detail,omitempty"`
+		Field      string `json:"field,omitempty"`
+		UserDetail string `json:"user_detail,omitempty"`
+	} `json:"errors,omitempty"`
+	Status     int64  `json:"status"`
+	Title      string `json:"title,omitempty"`
+	Type       string `json:"type"`
+	UserDetail string `json:"user_detail,omitempty"`
+	UserTitle  string `json:"user_title,omitempty"`
+}
+```
 
 
 #### エラーログの出力はServeHTTPの中で実施する
