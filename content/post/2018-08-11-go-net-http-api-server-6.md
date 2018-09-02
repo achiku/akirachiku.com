@@ -1,7 +1,6 @@
 ---
 date: "2018-08-11T00:00:00Z"
 title: 'net/httpで作るGo APIサーバー #6'
-draft: true
 ---
 
 
@@ -146,12 +145,14 @@ func IsTemporary(err error) bool {
 ```
 
 
-こっからは自分の主観。Opaque Errorは確かに便利で標準ライブラリでも良く利用されているパターンだと思うんだけど、アプリケーション内部で使うにはそこまでパッケージの結合度合いを考えないで良いのではないかなぁという思いがある(特にアプリケーション構築初期には)。なので自分はHTTP APIサーバーを作るというコンテクストでは Error Type 推し。ただ Opaque Error を使うと1関数から複数の Error Type が返ってくる想定で且つそれぞれの Error Type が `Tempolary()` と `Timeout()` を持っている場合、横断的なエラーハンドリングがしやすくはなるなとは思う。余談だけど、このタイプのメソッドは `Tempolary()` と `Timeout()` くらいしか見たことがなく自分の知見が狭いだけな可能性があるため、他にもこういう形のエラーハンドリングを使ってる場所があれば知りたい。
+こっからは自分の主観。Opaque Errorは確かに便利で標準ライブラリでも良く利用されているパターンだと思うんだけど、アプリケーション内部で使うにはそこまでパッケージの結合度合いを考えないで良いのではないかなぁという思いがある(特にアプリケーション構築初期には)。また、以下のようにエラーの扱いに困っている人とかもいたりして、確かに初見だと `XXXXError` みたいな型がパッケージのドキュメントにあった方が確かにわかりやすいよなぁという感想を持った。 [Go's net package doesn't have opaque errors, just undocumented ones](https://utcc.utoronto.ca/~cks/space/blog/programming/GoNetErrorsUndocumented)
+
+なので自分はHTTP APIサーバーを作るというコンテクストでは Error Type 推し。ただ Opaque Error を使うと1関数から複数の Error Type が返ってくる想定で且つそれぞれの Error Type が `Tempolary()` と `Timeout()` を持っている場合、横断的なエラーハンドリングがしやすくはなるなとは思う。余談だけど、このタイプのメソッドは `Tempolary()` と `Timeout()` くらいしか見たことがなく自分の知見が狭いだけな可能性があるため、他にもこういう形のエラーハンドリングを使ってる場所があれば知りたい。
 
 
 ### HTTP APIサーバーという文脈でそれらをどのように扱うか
 
-長かった。HTTP APIサーバーの中で `error` をどうやって使うかという話を書く。結論から書くと、カンムが提供するバンドルカードのAPIは「APIサーバーの中では原則 `error` のみ利用し、本当に必要な場合は Error Type を使う。フロントとのやり取りをするためにはそれ用の Error Type を定義してやりとりする。エラーログの出力は `ServeHTTP` の中で実施する。」という形をとっている。一つづついきます。
+長かった。HTTP APIサーバーの中で `error` をどうやって使うかという話を書く。結論から書くと、カンムが提供するバンドルカードのAPIは「APIサーバーの中では原則 `error` をWrapしながら利用し、本当に必要な場合は Error Type を使う。フロントとのやり取りをするためにはそれ用の型( Error Type じゃない)を定義してやりとりする。エラーログの出力は `ServeHTTP` の中で実施する。」という形をとっている。一つづついきます。
 
 
 #### APIサーバーの中では原則errorのみ利用し、本当に必要な場合は Error Type を使う
@@ -164,38 +165,67 @@ func IsTemporary(err error) bool {
 
 例えば、`model.GetUserByID(tx sql.Tx, id int64) (*model.User, error)` という関数があったとして、その関数から `UserNotFoundError` や `UserSuspendedError` を返す事もできる。できるけど、`xxNotFound` 系のエラー型を作ってしまうとその他のエラー型もすべて作る事になってしまう(作らなくてもいいけど大きく一貫性を損なう)。それでも良いと言えば良いのだけど、メリットが少ないと感じている。それならば、`model.GetUserByID(tx sql.Tx, id int64) (*model.User, bool, error)` として戻り値2つ目を見つかったかどうかの真偽値にし、呼び出し側で処理を分岐するのが楽かなと思う。また、「ユーザーのステータスが `suspended` であるかどうか」というのは、取得されたユーザーデータを元に呼び出し元で判定し、適切なエラーをフロントエンドに返す、という形にすれば不要になる。この関数 `model.GetUserByID` の役割にもよるが、どうしても呼び出し元で複数のエラーハンドリングをしないといけない場合、関数を分割することを検討するなどし、現状はなるべく Error Type を作らずに分岐可能な情報を返すような方針で設計している。
 
-ただし、特に外部APIにアクセスするクライアントライブラリに関しては返ってくるエラーに様々なパターンがあり且つそれらのパターン別にフロントエンドに返すメッセージを分けたいことが多い為、独自の Error Type を定義して利用することもある。もちろん失敗した事だけわかれば良い外部APIであれば error をそのまま返す形になっている。
+ただし、特に外部APIにアクセスするGoのクライアントライブラリに関しては返ってくるエラーに様々なパターンがあり且つそれらのパターン別にフロントエンドに返すメッセージを分けたいことが多い為、独自の Error Type を定義して利用することがある。もちろん失敗した事だけわかれば良い外部APIであれば error をそのまま返す形になっている。
 
 
-#### フロントとのやり取りをするためにはそれ用の Error Type を定義してやりとりする
+#### フロントとのやり取りをするためにはそれ用の型( Error Type じゃない)を定義してやりとりする
 
-以下を利用している。
+フロントエンド(アプリ/Web)とやりとりするデータはそれ用の型を作って利用している。これは `error` interface を満たす形ではなく、その他のレスポンスと同じように普通の struct になっている。これは完全にエンドユーザーとのコミュニケーションに利用する用途なので、エラーログ等には出すことは想定していない。多少変更しているが、現状以下。
 
 ```go
 // Error struct for error resource
 type Error struct {
+	Status     int64  `json:"status"`
+	Type       string `json:"type"`
 	Code   string `json:"code,omitempty"`
-	Detail string `json:"detail,omitempty"`
 	Errors []struct {
 		Code       string `json:"code,omitempty"`
 		Detail     string `json:"detail,omitempty"`
 		Field      string `json:"field,omitempty"`
 		UserDetail string `json:"user_detail,omitempty"`
 	} `json:"errors,omitempty"`
-	Status     int64  `json:"status"`
-	Title      string `json:"title,omitempty"`
-	Type       string `json:"type"`
 	UserDetail string `json:"user_detail,omitempty"`
-	UserTitle  string `json:"user_title,omitempty"`
 }
 ```
+
+- `Status` : HTTP Status Codeを入れる
+- `Type` : どの領域のエラーなのかを入れる (e.g. `card_activation`)
+- `Code` : 該当領域の中でどのようなエラーなのかを入れる (e.g. `invalid_activation_code`)
+- `Errors` : ユーザーインプットにエラーがあった場合に利用する
+- `UserDetail` : 緊急脱出用ユーザー向けエラーメッセージ
+
+フロント側は `Type` と `Code` を見て、なぜ処理が成功しなかったのか、どういう行動を取ればエラーを回避できるのか、等をエンドユーザーに伝えていく。この部分に関してはバックエンドとフロントエンドががっつり時間を取って話し合い、どういうケースが存在するのか、どのケースならユーザーに別のアクションをサジェストできるのか、等の認識を合わせていく必要がある。
+
+正直バンドルカードリリース時に自分は不要だと思っていたが圧倒的に役に立っているのは `UserDetail` というエラーメッセージだ。フロントではこのフィールドに値が入っている場合、その文言をそのまま表示するようになっている(moqadaさん本当にありがとうございます.....)。アプリを開発しているとその仕組み上、修正して即時デプロイという手を取れない。どうしてもこのケースはユーザーに伝えたい、またはバグが発生している、となった場合この `UserDetail` を利用しバックエンドを新規デプロイする事によりユーザーに適切なメッセージを提供できることになる。
+
+あくまでも `UserDetail` は緊急脱出用、その場しのぎ用であり本来的には各ケースをしっかり議論することが肝要ではあるが、度々このフィールドに命を救われている。
 
 
 #### エラーログの出力はServeHTTPの中で実施する
 
+`ServeHTTP` と handler の関連性についての詳細は下記を参照。
+
+
+> 気軽に使いたいだけならhttp.HandlerFuncのシグネチャに合う関数func(http.ResponseWriter, *http.Request)を書いてサクッと使える。もし実際の処理の前後に何か処理を挟みたい、処理を共通化したい、そもそもfunc(http.ResponseWriter, *http.Request)の空returnがいまいち好きになれない、等、ということになればServerHTTP(http.ResponseWriter, *http.Request)をメソッドに持つ型を作り、それに処理をする独自シグネチャを持つ関数を渡してURLに紐付けるのが良いのではないか。
+> [net/httpで作るGo APIサーバー #2](https://akirachiku.com/post/2017-04-02-go-net-http-api-server-2/)
+
+loggerに関しては以下の記事を参照。
+
+- [net/httpで作るGo APIサーバー #5](https://akirachiku.com/post/2018-06-23-go-net-http-api-server-5/)
+
+
+エラーログ出力に関しては1箇所にまとめ、しかもアプリケーションコードを書いている際は `error` の取り回しさえ気をつけていれば問題無いようにしたかった。handlerのシグネチャを `func(http.ResponseWriter, *http.Request) (int, interface{}, error)` にして戻り値の `int` をHTTP Status Codeとして利用、`interface{}` をユーザーに返すレスポンス、`error` を開発者が見るエラーログに出力する情報と定義している。
+
+
 ```go
-// ServeHTTPC for iapi
-func (h IapiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+
+// ApiHandler handler for api
+type ApiHandler struct {
+	handler func(http.ResponseWriter, *http.Request) (int, interface{}, error)
+}
+
+// ServeHTTPC for api
+func (h ApiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	encoder := json.NewEncoder(w)
 	logger := xlog.FromRequest(r)
 
@@ -205,7 +235,7 @@ func (h IapiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// http: request method or response status code does not allow body
 	case status == http.StatusNoContent:
 		return
-	// 300系はとりあえずリダイレクト
+	// 300系はリダイレクト。そのさいは interface{} は redirect先URL で返してもらうようにする。
 	case status == http.StatusFound || status == http.StatusMovedPermanently:
 		redirectURL, ok := res.(string)
 		if !ok {
@@ -233,9 +263,12 @@ func (h IapiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+400系は全てwarning log、500系はerror logとして扱っている。この辺りのエラーを運用でどうやって整備しているのかの話はまた別記事で書きたいのでここでは深入りはしない。
 
 
-### 効率的に扱うための仕組み
+### まとめ
+
+エラーハンドリングは本当にむずい。
 
 
 ### 参考資料
