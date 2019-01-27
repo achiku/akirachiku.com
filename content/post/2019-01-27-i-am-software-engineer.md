@@ -5,11 +5,11 @@ title: 'ソフトウェアと'
 
 ### 2013: はじめに
 
-約5年前にソフトウェアエンジニアになりたくて[前の会社を辞めた](http://localhost:1313/post/2013-11-18-job/)。当時3人の会社の4人目として入社。Web系のソフトウェアエンジニアの親しい友人はいない。その時からソフトウェアエンジニアコミュニティというものが存在していることは知ってたんだけど、どうしても好きになれくてその中に積極的に入っていこうという思いもあまりなかった。いわゆるスタートアップと呼ばれる会社だったけど、当時スタートアップ野郎には全く良い印象がなく、身内ノリがキモすぎてあまり関わりたくなかったので距離を取っていた。
+約5年前にソフトウェアエンジニアになりたくて[前の会社を辞めた](https://akirachiku.com/post/2013-11-18-job/)。当時3人の会社の4人目として入社。Web系のソフトウェアエンジニアの親しい友人はいない。その時からソフトウェアエンジニアコミュニティというものが存在していることは知ってたんだけど、どうしても好きになれくてその中に積極的に入っていこうという思いもあまりない。いわゆるスタートアップと呼ばれる会社だったけど、当時スタートアップ野郎には全く良い印象がなく、身内ノリがキモすぎてあまり関わりたくなかったので距離を取っていた。
 
-会社で一日中設計してコードを書いて家に帰ってDjangoやfluent-agent-hydraやpaho-mqtt、気になったソフトウェアを写経して土日は自分が感じる不便を解決するOSSを書いてた。写経は脳を大きく動かさなくてもとにかく開始できるという一点において便利な練習で、その頃はよくやっていた。とにかく沢山読んで書いて、風呂に入りながら本を読んで寝て。それを繰り返す日々をおくっていた。
+会社で一日中設計してコードを書いて家に帰ってDjangoやfluent-agent-hydraやpaho-mqtt、気になったソフトウェアを写経して土日は自分が感じる不便を解決するOSSを書く。写経は脳を大きく動かさなくてもとにかく開始できるという一点において便利な練習で、その頃はよくやっていた。とにかく沢山読んで書いて、風呂に入りながら本を読んで寝て。それを繰り返す日々をおくっていた。
 
-深夜、渋谷から誰もいない六本木通りを歩いて家に帰る道すがら「俺が一番強い」と声に出して唱え、エレカシの今宵の月のようにを小声で歌うのが好きだった。インターネットではしゃいでいちゃつきながら社畜自慢してるクソフェイクじゃなくて、本物のソフトウェアエンジニアになりたい。めちゃくちゃ傲慢なのはわかってるけど、ずっとそう思ってた。
+深夜、渋谷から誰もいない六本木通りを歩いて家に帰る道すがら「俺が一番強い」と声に出して唱え、エレカシの今宵の月のようにを小声で歌うのが好きだった。インターネットではしゃいでいちゃつきながら社畜自慢してるクソフェイクじゃなくて、本物のソフトウェアエンジニアになりたい。めちゃくちゃ傲慢なのはわかってるけど、ずっとそう思ってやっている。
 
 > "I'm sticking to the script, you niggas skipping scenes"
 > Lil Wayne
@@ -18,13 +18,13 @@ Lil Wayneも言っている。`be good, or be good at it` というリリック�
 
 ### 2014-2015: OSSやろう
 
-自分がOSSに出したPRで最初に受け入れられたのは[tagomoris/shibに対するPR](https://github.com/tagomoris/shib/pull/30)だ。何のことはない小さな修正だけど、会社で使ってたソフトウェアだし、tagomorisさんは自分がソフトウェアエンジニアになると覚悟したタイミングで以下の文章を書いていて、めちゃくちゃ励まされた覚えがある。今でも読み返す、何かが溢れてしまう文章だと思う。
+自分がOSSに出したPRで最初に受け入れられたのは[tagomoris/shibに対するPR](https://github.com/tagomoris/shib/pull/30)だ。何のことはない小さな修正だけど、会社で使ってたソフトウェアだし、tagomorisさんは自分がソフトウェアエンジニアになると覚悟したタイミングで以下の文章を書いていて、めちゃくちゃ励まされた覚えがある。この文章は今でも読み返す。本当に何かが溢れてしまう文章だと思う。
 
 - [4年前、おれがSIerの片隅で、何者でもなかった頃](https://tagomoris.hatenablog.com/entry/2014/02/25/091607)
 
-このタイミングでソフトウェアエンジニアになろうと覚悟して大体1年くらい経過している。ここに至るまでに自分がリーチできる範囲内で、自分がリアルだと思う人に「良いソフトウェアエンジニアになるにはどうしたらいいですか」と聞きに行くということをしていた。[チクメキメモリアル](https://akirachiku.com/post/2015-08-23-chiku-meki-memorial) にまとめて書いたんだけど、seizansさん、Vさん、muddydixonさんには色んな助言を貰い、かつそれが活きている部分も多くとにかく感謝しかない。
+このタイミングでソフトウェアエンジニアになろうと覚悟して大体1年くらい経過している。ここに至るまでに自分がリーチできる範囲内で、自分がリアルだと思う人に「良いソフトウェアエンジニアになるにはどうしたらいいですか」と聞きに活動を地味にやっていた。[チクメキメモリアル](https://akirachiku.com/post/2015-08-23-chiku-meki-memorial) にまとめて書いたんだけど、seizansさん、Vさん、muddydixonさんには色んな助言を貰い、かつそれが活きておりマジでとにかく感謝しかない。
 
-転機になったのは、AWSのCLIである [jungle](https://github.com/achiku/jungle) を書いた時。initial commitは2015/07を記録している。ある時日曜日に仕事してて、何気なく[HackerNewsに投稿](https://news.ycombinator.com/item?id=10109339)したらすごい勢いでスターが増えていきテンションぶち上がってそのまま行きつけの飲み屋に行き、酒をかっくらいながらソフトウェアのことなんか何も知らないんだけどめちゃくちゃ良くしてもらってた店長に「俺やったんすよ！！これ見てくださいよ！！」って言いながらGitHubの画面を見せてたのを思い出す。店長は困惑しながらも祝ってくれた。
+転機になったのは、AWSのCLIである [jungle](https://github.com/achiku/jungle) を書いた時。initial commitは2015/07を記録している。ある時日曜日に仕事してて、何気なく[HackerNewsに投稿](https://news.ycombinator.com/item?id=10109339)したらすごい勢いでスターが増えていきテンションぶち上がってそのまま行きつけの飲み屋に行き、酒をかっくらいながらソフトウェアのことなんか何も知らないんだけどめちゃくちゃ良くしてもらってた店長に「俺やったんすよ！！これ見てくださいよ！！」って言いながらGitHubの画面を見せてたのを思い出す。店長は困惑しながらも祝ってくれた(はず)。
 
 日本国内にソフトウェアエンジニアの知り合いが沢山いなくても、そのコミュニティーとやらに属さなくても、その道の人たちから少なからず認められたことは大きな自信になった。もちろんGitHubのスターはソフトウェアの品質を測る上では大して役にも立たないことは認識済みだけど、それでも、それでも本当に嬉しかった。
 
@@ -43,17 +43,16 @@ Lil Wayneも言っている。`be good, or be good at it` というリリック�
 
 - [How We Built Go Testable HTTP API Server](https://speakerdeck.com/achiku/how-we-built-testable-http-api-server)
 
-発表の練習も結構ガッツリしたんだけど、実際の発表は時間が足りなくなって全然上手く出来ずに悔しい思いをした。この時も発表会場に知り合いはおらず、完全にアウェーなので閉会とともにすごすごと帰ってしまった。帰りの電車に揺られながら、やっぱりコミュニティーみたいなのに参加するのは難しいなぁと考えていた。
+発表の練習も結構ガッツリしたんだけど、実際の発表は時間が足りなくなって全然上手く出来ずに悔しい思いをした。この時も発表会場に知り合いはおらず、完全にアウェーなので閉会とともにすごすごと帰宅。帰りの電車に揺られながら、やっぱりコミュニティーみたいなのに参加するのは難しいなぁと考えていた。
 
 この辺りから「net/httpで作るGo APIサーバー」という一連の考えてることをブログに書き始めた。とにかく忘れないうちに学んだことを書いておこうというのもあるんだけど、やっぱり自分が色んな記事を読んで学んだ事を他の誰かに渡さなくては、という思いが強かった。
-
 
 2017/11に再度GoConに応募して発表。このときは前回の失敗を活かして時間どおり終えることができた。このGoConはかなり印象深くて、mattnさんの本体が会場に来ており、database/sql関連の質問できたり、「アレがリアルなソフトウェアエンジニアだ」という実態を伴った思いと、直前にmattnさんに自分の出してるOSSにPRをもらってたり、めちゃくちゃ感慨深かった。
 
 <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">PostgreSQL のテーブルから PlantUML の ER 図を生成するツール。これ待ってた。 <a href="https://twitter.com/hashtag/golang?src=hash&amp;ref_src=twsrc%5Etfw">#golang</a> / “GitHub - achiku/planter: Generate PlantUML ER diagra…” <a href="https://t.co/alSZEJvvvG">https://t.co/alSZEJvvvG</a></p>&mdash; mattn (@mattn_jp) <a href="https://twitter.com/mattn_jp/status/912135399174135808?ref_src=twsrc%5Etfw">2017年9月25日</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-発表資料は[Async, Persistent, Fast, and Sable "Enought" Queue/Worker Using Go and PostgreSQL](https://speakerdeck.com/achiku/worker-using-go-and-postgresql)で、やっぱり自分はどうやったら Just Enough になるのかを考えるのが好きなんだなぁと思いながら資料を作っていた。(Just Enough 過ぎて今みんなに助けられまくっているので本当に申し訳ないという思いが最近強まってる)
+発表資料は [Async, Persistent, Fast, and Sable "Enought" Queue/Worker Using Go and PostgreSQL](https://speakerdeck.com/achiku/worker-using-go-and-postgresql) で、やっぱり自分はどうやったら Just Enough になるのかを考えるのが好きなんだなぁと思いながら資料を作っていた。(Just Enough 過ぎて足りないところが出始めており、今みんなに助けられまくっているので本当に申し訳ないという思いが最近強まってる...)
 
 もう一点、このGoConで転機になったことがある。清水の舞台から飛び降りるつもりでアフターパーティー的なものに参加したのだ。その中に [ymotongpoo](https://twitter.com/ymotongpoo) という男がいた。[すごいErlangゆかいに学ぼう！](https://www.amazon.co.jp/dp/B00MLUGZIS/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)の翻訳者でその本にはお世話になっており、以前から知っていたんだけど、当時はツイッターで過激な発言を繰り返すマジで怖そうな人という印象だった。ただ、話がめちゃくちゃ盛り上がってしまい、途中から参加してきた当時飲み友達今は同僚の [膝](https://twitter.com/mururururu) や、Far Yeast Tokyo Craft Beer & Baoでビールを一緒に飲んで盛り上がった [Songmu](https://twitter.com/songmu) さん、ずっとブログを読んでてこの人達はマジでリアルだと思っていた [deeeet](https://twitter.com/deeeet) さんや [tenntenn](https://twitter.com/tenntenn)さん、GoConで [ebiten](https://github.com/hajimehoshi/ebiten) を発表していた [hajimehoshi](https://twitter.com/hajimehoshi) さんと、六本木小松のうっすい酒をガブガブ飲みながら、くだらない話からソフトウェアの話まで、なんというかすごい楽しかった。
 
