@@ -1,6 +1,6 @@
 {{ partial "header.html" . }}
   <main class="pure-u-1 pure-u-md-1">
-    {{ $paginator := .Paginate (where .Site.Pages "Type" "post") }}
+    {{ $paginator := .Paginate (where .Pages "Type" "post") }}
     {{ range $paginator.Pages }}
       {{ partial "summary.html" . }}
     {{ end }}
