@@ -1,15 +1,9 @@
 ---
-title: About
-date: 2018-04-24T00:00:00Z
+title: Akira Chiku
+date: 2019-07-21T00:00:00Z
 aliases:
   - /about.html
 ---
-
-![achiku](/images/profile_img.jpg)
-
-Akira Chiku
-
-Birthday: 1985/08/18
 
 - [GitHub](https://github.com/achiku)
 - [Twitter](https://twitter.com/_achiku)
