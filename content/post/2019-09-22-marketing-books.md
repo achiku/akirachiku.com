@@ -218,6 +218,8 @@ COOL MINTガム、おいしい牛乳のリニューアルを手掛けた著者�
 
 読み直してみたけどめちゃくちゃ長くなってしまった。これ最後まで読む人いるのか？最後まで読んだ方！！是非オススメの本を [@achiku](https://twitter.com/_achiku) まで教えて下さい！！！また、カンムでは随時マーケティングチームのメンバーを募集しております！！興味ある方は是非お声がけください！
 
+<script async class="speakerdeck-embed" data-id="881f5f2c734e444283d6c279f09bea4c" data-ratio="1.44428772919605" src="//speakerdeck.com/assets/embed.js"></script>
+
 ## 紹介した本/連載のリスト
 
 - [トラクション ―スタートアップが顧客をつかむ19のチャネル](https://www.amazon.co.jp/dp/4873117224/)
