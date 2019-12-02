@@ -78,7 +78,7 @@ image: '/images/20191130-promotion-dashboar/redash.png'
 プロモーションDashboardで何を目指すかだけど、大きく分けて4つ。
 
 - 月次目標管理
-- 異常値検出/対応
+- 変動検出
 - 流入経路別ユーザーアクション/属性分析
 - 過去の振り返り
 
@@ -214,6 +214,152 @@ order by paid.dt
 ### 当月ネットワーク別Paid CPA、Blended CPA
 
 これはPaid Cost/Paid獲得出せばいけるし、Blendedは分母にOrganic獲得を入れれば出せる。ネットワーク別日別Paid CPAもサクッと出せるので一旦ここではSQL省く。
+
+
+## 変動検出
+
+### 直近3日間時間別累積登録数
+
+![](/images/20191130-promotion-dashboard/3-days-running-total.jpg)
+※ダミーデータです
+
+一日の登録件数を積み上げで見る際に利用。ざっくり直近3日間と比較して当日どれくらいで進捗しているのかを確認する為に利用する。朝イチで更新してここが上振れていると一日が幸せになる。
+
+```sql
+select
+  a.dt
+  , a.hr
+  , sum(a.cnt) over (partition by a.dt order by a.hr)
+from (
+  select
+    to_char(date_trunc('day', i.registered_at) at time zone 'JST', 'YYYY/MM/DD') dt
+    , to_char(date_trunc('hour', i.registered_at), 'HH24') hr
+    , count(*) cnt
+  from your_service_user i
+  where i.registered_at >= date_trunc('day', current_timestamp at time zone 'JST' + '-3days')
+  group by dt, hr
+) a
+```
+
+直近3日間だけだと曜日変動を考慮できないので以下のように3週前の同様日比較のグラフも作っている。月別同日比較もある(グラフの形は直近3日と同じなので省く)。
+
+```sql
+select
+  a.dt
+  , a.hr
+  , a.w
+  , sum(a.cnt) over (partition by a.dt order by a.hr)
+from (
+  select
+    to_char(date_trunc('day', e.registered_at at time zone 'JST'), 'YYYY/MM/DD') dt
+    , to_char(e.registered_at at time zone 'JST', 'HH24') hr
+    , extract(dow from e.registered_at at time zone 'JST') w
+    , count(*) cnt
+  from your_service_user e
+  where e.registered_at >= date_trunc('day', current_timestamp at time zone 'JST' + '-3weeks')
+  and extract(dow from e.registered_at at time zone 'JST') = extract(dow from current_timestamp at time zone 'JST')
+  group by dt, hr, w
+) a
+```
+
+### 直近3日間時間別登録数
+
+![](/images/20191130-promotion-dashboard/3-days-hourly.jpg)
+※ダミーデータです
+
+直近3日間の時間別登録数。これは累積ではなく、その1時間に何件の登録があったかを見る為に作っている。ここが直近3日間と比較して上がっている/下がっている場合何か発生している可能性が高い。上下している理由の深堀りはネットワーク別に見る必要があるが、変動を見るのには非常に便利なグラフ。
+
+
+```sql
+select
+  to_char(date_trunc('day', i.registered_at at time zone 'jst'), 'YYYY/MM/DD') dt
+  , to_char(date_trunc('hour', i.registered_at at time zone 'jst'), 'HH24') hr
+  , count(*) cnt
+from coolec_user i
+where i.registered_at >= date_trunc('day', current_timestamp at time zone 'jst' + '-3days')
+group by dt, hr
+order by dt, hr
+```
+
+### 直近3日間時間別登録率
+
+![](/images/20191130-promotion-dashboard/3-days-registration-rate.jpg)
+※ダミーデータです(データの作りが悪くて100%超えてる部分もあるけどそれは見逃して欲しい)
+
+フラウドが発生している場合、登録自体は変動が無いが登録率が極端に下がる事が多い。登録数/インストール数を登録率とした際に直近3日間の時間帯別変動を見て、登録率が極端に下がっている場合はネットワーク別にどの登録率が下がっているかを確認し即時対応していく。
+
+```sql
+select
+  inst.dt
+  , inst.hr
+  , cast(reg.cnt as float) / cast(inst.cnt as float) registration_rate
+from (
+  select
+    to_char(date_trunc('day', i.installed_at) at time zone 'JST', 'YYYY/MM/DD') dt
+    , to_char(date_trunc('hour', i.installed_at), 'HH24') hr
+    , count(*) cnt
+  from adjust_install_event i
+  where i.installed_at >= date_trunc('day', current_timestamp at time zone 'JST' + '-3days')
+  group by dt, hr
+) inst
+join (
+  select
+    to_char(date_trunc('day', i.registered_at) at time zone 'JST', 'YYYY/MM/DD') dt
+    , to_char(date_trunc('hour', i.registered_at), 'HH24') hr
+    , count(*) cnt
+  from adjust_registration_event i
+  where i.registered_at >= date_trunc('day', current_timestamp at time zone 'JST' + '-3days')
+  group by dt, hr
+) reg
+on (reg.dt = inst.dt and reg.hr = inst.hr)
+order by inst.dt, inst.hr
+```
+
+### ネットワーク別前日当日同時間登録数比較
+
+![](/images/20191130-promotion-dashboard/prev-day-network-comp.jpg)
+※ダミーデータです
+
+直近3日間のグラフ等で変動を検知したらまずはネットワーク別に前日と比較してどこが上がってる/下がってるのかを確認したい。そんな時に便利な表がコレ。redashはクエリ結果内にHTMLを含めることができるので色付けしてわかりやすくした。新規登録者の絶対数でソートしているので最も変動に影響があるネットワークが先頭に来るようになっている。
+
+```sql
+select
+  td.network_name
+  , td.cnt tdy
+  , coalesce(ye.cnt, 0) yst
+  , td.cnt - coalesce(ye.cnt, 0) diff
+  , case
+      when ye.cnt = 0 then 0
+      else abs((td.cnt - coalesce(ye.cnt, 0))) / cast(ye.cnt as float)
+    end rate
+  , case
+      when sign(td.cnt - coalesce(ye.cnt, 0)) = 1 then '<div class="bg-success text-center">↑</div>'
+      when sign(td.cnt - coalesce(ye.cnt, 0)) = 0 then '<div class="bg-info text-center">→</div>'
+      when sign(td.cnt - coalesce(ye.cnt, 0)) = -1 then '<div class="bg-danger text-center">↓</div>'
+    end status
+from (
+  select
+    re.network_name
+    , count(*) cnt
+  from adjust_registration_event re
+  where re.registered_at >= date_trunc('day', current_timestamp at time zone 'jst')
+  and re.registered_at <= date_trunc('minutes', current_timestamp at time zone 'jst')
+  group by re.network_name
+) td
+left join (
+  select
+    re.network_name
+    , count(*) cnt
+  from adjust_registration_event re
+  where re.registered_at >= date_trunc('day', current_timestamp at time zone 'jst' + '-1day')
+  and re.registered_at <= date_trunc('minutes', current_timestamp at time zone 'jst' + '-1day')
+  group by re.network_name
+) ye
+on td.network_name = ye.network_name
+order by abs(td.cnt - coalesce(ye.cnt, 0)) desc
+
+```
+
 
 ## まとめ
 
