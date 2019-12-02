@@ -1,7 +1,7 @@
 ---
 date: "2019-11-04T00:00:00Z"
 title: 'カンム流redashを使ったプロモーションDashboardの作り方 その1'
-image: '/images/20191130-promotion-dashboar/redash.png'
+image: '/images/20191130-promotion-dashboard/redash.png'
 ---
 
 カンムではredashを使い倒している。とにかくお世話になっているredashではあるけど、特にマーケティングチームはかなりお世話になっている。最近、3テーブル+1 Google Spreadsheetあればとりあえずオンライン広告を利用したプロモーションのDashboardの大本になるようなものはできることに気がついたので以下に簡単にまとめる。かなり簡素化して書く予定なので身構えず読んで欲しいし、みんなもどうやってるのか教えて欲しい。
