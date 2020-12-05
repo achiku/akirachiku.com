@@ -4,6 +4,7 @@ languageCode: ja-jp
 title: 包丁一本さらしに巻いて
 hasCJKLanguage: true
 pygmentsCodeFences: true
-
+markup:
+  defaultMarkdownHandler: "blackfriday"
 permalinks:
   post: /post/:filename
