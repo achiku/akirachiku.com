@@ -73,7 +73,9 @@ image: '/images/20200427/ogp.jpg'
 - [UXリサーチの道具箱 ―イノベーションのための質的調査・分析](https://www.amazon.co.jp/dp/4274222187)
 - [マーケティング・インタビュー―問題解決のヒントを「聞き出す」技術](https://www.amazon.co.jp/dp/B011JYCALM)
 - [マーケティング・インタビューのプロ　モデレーター　聞き出す技術](https://www.amazon.co.jp/gp/product/B00KWWDO7M/)
+- [質的社会調査の方法――他者の合理性の理解社会学](https://www.amazon.co.jp/gp/product/B076D7DPB4)
 - [Interviewing Users:  How to Uncover Compelling Insights](https://www.amazon.co.jp/Interviewing-Users-Uncover-Compelling-Insights-ebook/dp/B00CEKR872)
+
 
 この中で最も実践的だと思ったのは [The Mom Test](https://www.amazon.co.jp/Mom-Test-customers-business-everyone-ebook/dp/B01H4G2J1U) だ。Startup School 2019でも紹介されており、この[記事](https://review.foundx.jp/entry/how-to-talk-to-users)自体も良かったんだけど本の内容もかなり良いので是非読んで欲しい。
 
@@ -82,6 +84,21 @@ image: '/images/20200427/ogp.jpg'
 ### 「教えてもらう」「あなたの行動に興味がある」という姿勢を徹底する
 
 まずは完全に当たり前だけど、大前提としてユーザーから色んな事を教えてもらうんだという姿勢を必ず持ってインタビューに臨むこと。自分もインタビュー受けたことはあるのですが、適当にやってると伝わってしまう。可能な限り事前連絡、日程調整含めて齟齬のないよう丁寧に連絡を取り合い、当日を迎えた際はまずはお時間を取って頂きありがとうございます！から始めるのが良いと思う。
+
+### 「他者の合理性」に対して意識的になる
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">良かった <a href="https://t.co/wFsimsNTE2">pic.twitter.com/wFsimsNTE2</a></p>&mdash; _achiku (@_achiku) <a href="https://twitter.com/_achiku/status/1328546387424735232?ref_src=twsrc%5Etfw">November 17, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+このツイートにのっているスクショは [質的社会調査の方法――他者の合理性の理解社会学](https://www.amazon.co.jp/gp/product/B076D7DPB4) の一部。この本は社会学に対して真摯に向き合っている人たちが各自の研究における定性調査の話をしてくれているのだけど、デプスインタビューがethnographyと呼ばれる理由に対する理解を深めてくれる。
+
+この本の中に出てくる重要概念として「他者の合理性」というのがある。これは自分たち(インタビュアー)が見えていないインタビュイーの中にある期待コスト、期待メリットを鑑みると一見非合理な行動の背後には彼らなりの合理がある可能性は十分あるよ、というものだと理解している。インタビューする際には常に「自分たちが見えていない、意識できていない期待コスト、期待メリットは何か」というのを意識して話を聞く姿勢が非常に大切だと思う。なぜならそこにこそ、自分たちや自分たちに似た行動傾向を持つ人たちが知らない事実が隠れているから。こういった「他者の合理性」というものへの事例を含めた理解を促進する本としては以下2冊がおすすめできる。
+
+- [事実はなぜ人の意見を変えられないのか](https://www.amazon.co.jp/gp/product/B07ZNCV7TB)
+- [貧乏人の経済学――もういちど貧困問題を根っこから考える](https://www.amazon.co.jp/gp/product/B01H0835MO)
+
+「他者の合理性」エピソードでいうとP&Gの紙おむつが全然狙ってない層に響いた話もとても面白かった。
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">プロダクト出してみたら意外な層に刺さった系の話で好きなのはコレです <a href="https://t.co/wJ7GImSvFF">pic.twitter.com/wJ7GImSvFF</a></p>&mdash; _achiku (@_achiku) <a href="https://twitter.com/_achiku/status/1265127335293931521?ref_src=twsrc%5Etfw">May 26, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ### 自分のプロダクトの話は必要最低限に留め、とにかく聞く
 
