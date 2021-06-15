@@ -79,4 +79,4 @@ Tech Dayと通常業務との兼ね合いは完全に社員にお任せしてい
 - [非エンジニアの、エンジニアリングによる業務効率化の試み－－Kanmu Tech Day レポート](https://www.wantedly.com/companies/kanmu/post_articles/158290)
 
 
-<script async class="speakerdeck-embed" data-id="881f5f2c734e444283d6c279f09bea4c" data-ratio="1.44428772919605" src="//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="78911418a1df4b1a9a60f938a57e9951" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
