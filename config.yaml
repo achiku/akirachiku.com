@@ -5,6 +5,6 @@ title: 包丁一本さらしに巻いて
 hasCJKLanguage: true
 pygmentsCodeFences: true
 markup:
-  defaultMarkdownHandler: "blackfriday"
+  defaultMarkdownHandler: "goldmark"
 permalinks:
   post: /post/:filename
