@@ -75,9 +75,9 @@ image: '/images/20220917/phase.jpeg'
 
 どんな前提条件からでもGreat Productを作っていこう。
 
-### 注意点
+### (注意事項)
 
-前提として以下の内容は自分の経験をベースに書いている。そのためどういう経験をもとに書いているのかを明記しておく。各フェーズに対する認識は当時の自分のロールに大きく影響を受けている為だ。最初期にはバックエンドのソフトウェアエンジニアとして(2016-2019)、途中から新規ユーザー登録責任者且つ経営者として(2019-2021)、2021年くらいからプロダクトマネージャー且つ経営者をやり今にいたる。上記の経験の制約上、立ち上げ期はソフトウェアエンジニアリング観点、グロース期はユーザーリサーチ/プロモーション観点に寄っているはず。また、経営というものに関与するようになったのはユーザーリサーチ/プロモーションをやり始めた時期の為、立ち上げ期の話に経営や事業計画観点が少ないと思う。
+前提として上記の内容は自分の経験をベースに書いている。そのためどういう経験をもとに書いているのかを明記しておく。各フェーズに対する認識は当時の自分のロールに大きく影響を受けている為だ。最初期にはバックエンドのソフトウェアエンジニアとして(2016-2019)、途中から新規ユーザー登録責任者且つ経営者として(2019-2021)、2021年くらいからプロダクトマネージャー且つ経営者をやり今にいたる。上記の経験の制約上、立ち上げ期はソフトウェアエンジニアリング観点、グロース期はユーザーリサーチ/プロモーション観点に寄っているはず。また、経営というものに関与するようになったのはユーザーリサーチ/プロモーションをやり始めた時期の為、立ち上げ期の話に経営や事業計画観点が少ないと思う。
 
 ### おまけ
 
@@ -91,4 +91,4 @@ HxH連載再開と冨樫先生の健康を祈っています。
 
 PHASE 3、人生は着火済みのロウソク。
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/s6h4ugRx3UE?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/s6h4ugRx3UE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
