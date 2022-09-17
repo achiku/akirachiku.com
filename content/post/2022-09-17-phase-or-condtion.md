@@ -88,3 +88,7 @@ HxH連載再開と冨樫先生の健康を祈っています。
 フェーズ2以降の気持ちを表現した。
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">「プロダクトビジョン」「事業計画」 <a href="https://t.co/se0lN6RB50">pic.twitter.com/se0lN6RB50</a></p>&mdash; _achiku (@_achiku) <a href="https://twitter.com/_achiku/status/1549309052974673920?ref_src=twsrc%5Etfw">July 19, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+PHASE 3、人生は着火済みのロウソク。
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/s6h4ugRx3UE?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
