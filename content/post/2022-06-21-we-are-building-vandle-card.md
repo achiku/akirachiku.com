@@ -1,6 +1,7 @@
 ---
 date: "2022-06-21T00:00:00Z"
 title: 'バンドルカードを作ってる2'
+draft: true
 image: '/images/20220621/value-relationship.png'
 ---
 
